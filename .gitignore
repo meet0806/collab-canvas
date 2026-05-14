@@ -1,0 +1,13 @@
+node_modules
+dist
+public/wasm
+target
+crates/canvas-wasm/target
+.DS_Store
+*.log
+.env
+.env.*
+!.env.example
+runtime-*.png
+Screenshot*.png
+chrome-profile*

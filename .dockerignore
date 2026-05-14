@@ -1,0 +1,9 @@
+node_modules
+dist
+crates/canvas-wasm/target
+target
+.git
+*.log
+runtime-*.png
+Screenshot*.png
+chrome-profile*

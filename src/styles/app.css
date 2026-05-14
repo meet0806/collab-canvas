@@ -1,0 +1,523 @@
+:root {
+  color: #1f2933;
+  background: #f7f4ed;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.appShell {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #f7f4ed;
+}
+
+.landingShell {
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 28px;
+  background:
+    linear-gradient(rgba(31, 41, 51, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31, 41, 51, 0.055) 1px, transparent 1px),
+    #f7f4ed;
+  background-size: 32px 32px;
+}
+
+.landingHero {
+  width: min(920px, 100%);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 32px;
+  align-items: center;
+}
+
+.landingCopy p {
+  margin: 0 0 12px;
+  color: #0f766e;
+  font-size: 14px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.landingCopy h1 {
+  margin: 0;
+  max-width: 620px;
+  color: #1f2933;
+  font-size: 52px;
+  line-height: 1.02;
+  font-weight: 900;
+}
+
+.joinPanel {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid rgba(31, 41, 51, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 20px 60px rgba(31, 41, 51, 0.14);
+  backdrop-filter: blur(16px);
+}
+
+.joinPanel label {
+  display: grid;
+  gap: 8px;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.joinPanel input {
+  width: 100%;
+  height: 44px;
+  padding: 0 12px;
+  border: 1px solid rgba(31, 41, 51, 0.16);
+  border-radius: 7px;
+  color: #111827;
+  background: #fff;
+  outline: 0;
+}
+
+.joinPanel input:focus {
+  border-color: #0f766e;
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.14);
+}
+
+.joinError {
+  color: #991b1b;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.landingActions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.primaryAction,
+.secondaryAction {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  border: 0;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.primaryAction {
+  color: #fff;
+  background: #0f766e;
+}
+
+.secondaryAction {
+  color: #243127;
+  background: #e7f0e4;
+}
+
+.canvasStage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  cursor: crosshair;
+  overflow: hidden;
+}
+
+.canvasStage-eraser {
+  cursor: cell;
+}
+
+.canvasStage-pan {
+  cursor: grab;
+}
+
+.canvasSurface {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.toolbar {
+  position: fixed;
+  z-index: 20;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 56px;
+  padding: 8px;
+  border: 1px solid rgba(31, 41, 51, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 14px 40px rgba(31, 41, 51, 0.14);
+  backdrop-filter: blur(16px);
+}
+
+.toolGroup {
+  display: grid;
+  gap: 6px;
+}
+
+.iconButton,
+.colorSwatch {
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.iconButton {
+  display: grid;
+  place-items: center;
+  color: #2f3a32;
+  background: transparent;
+}
+
+.iconButton:hover:not(:disabled),
+.iconButton.isActive {
+  background: #e7f0e4;
+  color: #0f5132;
+}
+
+.iconButton.isDanger:hover:not(:disabled) {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.iconButton:disabled {
+  cursor: default;
+  color: rgba(47, 58, 50, 0.32);
+}
+
+.colorGroup {
+  padding-top: 4px;
+  border-top: 1px solid rgba(31, 41, 51, 0.1);
+}
+
+.colorSwatch {
+  border: 2px solid #fff;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.14);
+}
+
+.colorSwatch.isActive {
+  outline: 2px solid #243127;
+  outline-offset: 2px;
+}
+
+.widthControl {
+  display: grid;
+  place-items: center;
+  gap: 8px;
+  padding-block: 6px;
+  border-block: 1px solid rgba(31, 41, 51, 0.1);
+  color: #3d4a40;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.widthControl input {
+  width: 108px;
+  transform: rotate(-90deg);
+  margin-block: 46px;
+  accent-color: #0f766e;
+}
+
+.roomControls,
+.presenceBar,
+.localBadge,
+.canvasNotice {
+  position: fixed;
+  z-index: 15;
+  border: 1px solid rgba(31, 41, 51, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 14px 40px rgba(31, 41, 51, 0.12);
+  backdrop-filter: blur(16px);
+}
+
+.roomControls {
+  top: 16px;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: min(760px, calc(100vw - 32px));
+  padding: 8px;
+  transform: translateX(-50%);
+}
+
+.roomControls input {
+  min-width: 0;
+  flex: 1;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid rgba(31, 41, 51, 0.14);
+  border-radius: 6px;
+  color: #1f2933;
+  background: #fff;
+}
+
+.roomControls button {
+  height: 36px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 6px;
+  color: #fff;
+  background: #0f766e;
+  cursor: pointer;
+}
+
+.roomCode {
+  display: inline-grid;
+  place-items: center;
+  height: 36px;
+  min-width: 92px;
+  padding: 0 10px;
+  border: 1px solid rgba(31, 41, 51, 0.12);
+  border-radius: 6px;
+  color: #0f5132;
+  background: #ecfdf5;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.roomIconButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 36px;
+  color: #243127 !important;
+  background: #eef2ee !important;
+}
+
+.roomIconButton:hover {
+  background: #e1e9df !important;
+}
+
+.statusPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 10px;
+  border-radius: 6px;
+  color: #475569;
+  background: #f3f4f6;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.status-connected {
+  color: #14532d;
+  background: #dcfce7;
+}
+
+.status-disconnected {
+  color: #991b1b;
+  background: #fee2e2;
+}
+
+.presenceBar {
+  top: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px;
+}
+
+.presenceBar span {
+  min-width: 22px;
+  color: #475569;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.remoteCursor {
+  position: absolute;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  display: grid;
+  justify-items: start;
+  gap: 4px;
+  pointer-events: none;
+  will-change: transform;
+  color: var(--cursor-color);
+}
+
+.remoteCursorPointer {
+  height: 18px;
+}
+
+.remoteCursorPoint {
+  width: 0;
+  height: 0;
+  border-top: 13px solid currentColor;
+  border-right: 9px solid transparent;
+  filter: drop-shadow(0 1px 1px rgba(15, 23, 42, 0.28));
+}
+
+.remoteCursor-diamond .remoteCursorPoint {
+  width: 13px;
+  height: 13px;
+  border: 0;
+  border-radius: 3px;
+  background: currentColor;
+  transform: rotate(45deg);
+}
+
+.remoteCursor-circle .remoteCursorPoint {
+  width: 14px;
+  height: 14px;
+  border: 3px solid currentColor;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.remoteCursor-square .remoteCursorPoint {
+  width: 13px;
+  height: 13px;
+  border: 0;
+  border-radius: 2px;
+  background: currentColor;
+}
+
+.remoteCursorName {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 4px 8px;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.18);
+}
+
+.localBadge {
+  right: 16px;
+  bottom: 16px;
+  padding: 8px 10px;
+  border-left-width: 4px;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.canvasNotice {
+  left: 50%;
+  bottom: 16px;
+  padding: 10px 12px;
+  transform: translateX(-50%);
+  color: #334155;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.canvasNoticeError {
+  color: #991b1b;
+}
+
+@media (max-width: 720px) {
+  .toolbar {
+    left: 8px;
+    top: auto;
+    bottom: 8px;
+    transform: none;
+    flex-direction: row;
+    width: auto;
+    max-width: calc(100vw - 16px);
+    overflow-x: auto;
+  }
+
+  .toolGroup {
+    display: flex;
+  }
+
+  .widthControl {
+    grid-auto-flow: column;
+    border-block: 0;
+    border-inline: 1px solid rgba(31, 41, 51, 0.1);
+    padding-inline: 8px;
+  }
+
+  .widthControl input {
+    width: 92px;
+    margin: 0;
+    transform: none;
+  }
+
+  .roomControls {
+    top: 8px;
+    min-width: calc(100vw - 16px);
+    flex-wrap: wrap;
+  }
+
+  .roomControls input {
+    flex-basis: 150px;
+  }
+
+  .presenceBar {
+    top: 64px;
+    right: 8px;
+  }
+
+  .landingHero {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .landingCopy h1 {
+    font-size: 36px;
+  }
+
+  .landingActions {
+    grid-template-columns: 1fr;
+  }
+}
