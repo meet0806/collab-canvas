@@ -17,6 +17,7 @@
     "@vitejs/plugin-react": "^4.5.0",
     "concurrently": "^9.1.2",
     "lucide-react": "^0.468.0",
+    "pg": "^8.13.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "vite": "^5.4.11",
@@ -26,10 +27,14 @@
     "yjs": "^13.6.20"
   },
   "devDependencies": {
+    "@types/pg": "^8.11.10",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@types/ws": "^8.5.13",
     "typescript": "^5.6.3"
+  },
+  "overrides": {
+    "shell-quote": "^1.8.4"
   },
   "engines": {
     "node": ">=20"

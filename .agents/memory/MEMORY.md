@@ -1,0 +1,1 @@
+- [DB persistence for rooms/sessions](db-persistence.md) — schema auto-created on start; presence stays in-memory; shell-quote override needed for pg install
